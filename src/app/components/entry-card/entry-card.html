@@ -1,0 +1,56 @@
+<div
+  class="entry-card"
+  [class.own-entry]="isOwn"
+  [class.partner-entry]="!isOwn"
+  (click)="onCardClick()"
+>
+  <div class="entry-meta">
+    <span class="author-tag">{{ isOwn ? 'You' : entry.authorUsername }}</span>
+    @if (!isOwn && !unlocked()) {
+      <span class="lock-icon">🔒</span>
+    }
+    @if (!isOwn && unlocked()) {
+      <span class="lock-icon">🔓</span>
+    }
+  </div>
+
+  @if (isOwn || unlocked()) {
+    <div class="entry-content">
+      <p>{{ entry.content }}</p>
+    </div>
+  } @else if (!showQuestion()) {
+    <div class="locked-preview">
+      <span class="locked-text">This page is locked</span>
+      <span class="tap-hint">Tap to unlock 🔑</span>
+    </div>
+  }
+
+  @if (showQuestion()) {
+    <div class="unlock-form" (click)="$event.stopPropagation()">
+      <p class="question">{{ entry.lockQuestion }}</p>
+
+      <div class="options">
+        @for (opt of options(); let i = $index; track i) {
+          <div
+            class="option"
+            [class.selected]="selectedOption() === opt"
+            (click)="selectOption(opt)"
+          >
+            {{ opt }}
+          </div>
+        }
+      </div>
+
+      @if (wrongAnswer()) {
+        <p class="wrong-answer">Wrong answer, try again 💔</p>
+      }
+
+      <div class="unlock-actions">
+        <button class="btn-primary btn-sm" (click)="submitAnswer()" [disabled]="loading()">
+          {{ loading() ? 'Unlocking...' : 'Unlock' }}
+        </button>
+        <button class="btn-ghost btn-sm" (click)="cancelUnlock()">Cancel</button>
+      </div>
+    </div>
+  }
+</div>

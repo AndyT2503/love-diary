@@ -1,0 +1,55 @@
+.diary-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+}
+
+.diary-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+
+  .diary-title { margin: 0; color: var(--primary); }
+}
+
+.written-badge {
+  color: var(--success);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.date-group {
+  margin-bottom: 2rem;
+}
+
+.date-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+.entries-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+
+  .empty-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+}
+
+.loading-state {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+}

@@ -1,0 +1,124 @@
+.entry-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &.partner-entry {
+    cursor: pointer;
+    &:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  }
+
+  &.own-entry {
+    border-left: 3px solid var(--primary);
+  }
+}
+
+.entry-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.author-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lock-icon { font-size: 1rem; }
+
+.entry-content p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.7;
+  font-family: 'Georgia', serif;
+  font-size: 0.95rem;
+}
+
+.locked-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+
+  .locked-text { color: var(--text-muted); font-style: italic; }
+  .tap-hint { font-size: 0.8rem; color: var(--primary); }
+}
+
+.unlock-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .question {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  input { width: 100%; box-sizing: border-box; }
+}
+
+.wrong-answer {
+  color: #e05c7a;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.unlock-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.option {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  color: var(--text);
+
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #fafafa;
+    border-color: var(--primary);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.option.selected {
+  background: rgba(255, 105, 135, 0.12);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 500;
+}

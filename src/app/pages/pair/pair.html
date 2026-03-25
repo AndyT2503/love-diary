@@ -1,0 +1,69 @@
+<div class="page-container layout">
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">💕</span>
+      <span class="app-name">Love Diary</span>
+    </div>
+    <div class="header-right">
+      @if (currentUser()) {
+        <span class="username">&#64;{{ currentUser()!.username }}</span>
+      }
+      <button class="btn-ghost" (click)="logout()">Sign Out</button>
+    </div>
+  </header>
+  <div class="pair-container">
+    <div class="pair-card">
+      <div class="pair-header">
+        <span class="pair-icon">💑</span>
+        <h2>Find Your Partner</h2>
+        <p>Search by username to send a pairing request</p>
+      </div>
+
+      <div class="search-section">
+        <div class="search-row">
+          <input
+            type="text"
+            [(ngModel)]="searchUsername"
+            placeholder="Enter username..."
+            (keyup.enter)="searchUser()"
+          />
+          <button class="btn-primary" (click)="searchUser()">Search</button>
+        </div>
+
+        @if (searchError()) {
+          <p class="error-msg">{{ searchError() }}</p>
+        }
+
+        @if (foundUser()) {
+          <div class="found-user">
+            <span class="user-avatar">👤</span>
+            <span class="user-name">{{ foundUser()!.username }}</span>
+            <button class="btn-love" (click)="sendRequest()" [disabled]="loading()">
+              Send Request 💌
+            </button>
+          </div>
+        }
+
+        @if (actionMsg()) {
+          <p class="action-msg">{{ actionMsg() }}</p>
+        }
+      </div>
+
+      @if (pendingRequests().length > 0) {
+        <div class="requests-section">
+          <h3>Incoming Requests</h3>
+          @for (req of pendingRequests(); track req.id) {
+            <div class="request-item">
+              <span class="user-avatar">💌</span>
+              <span>{{ req.requesterUsername }} wants to be your partner</span>
+              <div class="request-actions">
+                <button class="btn-accept" (click)="acceptRequest(req)">Accept</button>
+                <button class="btn-decline" (click)="declineRequest(req.id!)">Decline</button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="write-card">
+  <div class="write-header">
+    <span class="write-icon">✍️</span>
+    <h3>Today's Page</h3>
+  </div>
+
+  <div class="form-group">
+    <label for="content">What's on your heart today?</label>
+    <textarea id="content" [(ngModel)]="content" rows="5" placeholder="Dear diary..."></textarea>
+  </div>
+
+  <div class="lock-section">
+    <div class="lock-header">
+      <span>🔒</span>
+      <span>Lock this page for your partner</span>
+    </div>
+    <div class="form-group">
+      <label for="question">Secret question</label>
+      <input id="question" type="text" [(ngModel)]="lockQuestion"
+        placeholder="e.g. What did we eat on our first date?" />
+    </div>
+    <div class="form-group">
+      <label>Correct answer</label>
+      <input type="text" [(ngModel)]="correctAnswer" placeholder="Correct answer..." />
+    </div>
+    <div class="form-group">
+      <label>Options</label>
+      @for (opt of options; let i = $index; track i) {
+      <input type="text" [(ngModel)]="options[i]" placeholder="Option {{ i + 1 }}" />
+      }
+    </div>
+  </div>
+
+  @if (error()) {
+  <p class="error-msg">{{ error() }}</p>
+  }
+
+  <button class="btn-love" (click)="save()" [disabled]="loading()">
+    {{ loading() ? 'Saving...' : 'Save Page 💾' }}
+  </button>
+</div>

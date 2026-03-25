@@ -1,0 +1,61 @@
+<div class="layout">
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">💕</span>
+      <span class="app-name">Love Diary</span>
+    </div>
+    <div class="header-right">
+      @if (currentUser()) {
+        <span class="username">&#64;{{ currentUser()!.username }}</span>
+      }
+      <button class="btn-ghost" (click)="logout()">Sign Out</button>
+    </div>
+  </header>
+
+  <main class="diary-main">
+    @if (loading()) {
+      <div class="loading-state">
+        <span>Loading your diary...</span>
+      </div>
+    } @else {
+      <div class="diary-toolbar">
+        <h2 class="diary-title">Our Story 📖</h2>
+        @if (!hasWrittenToday()) {
+          <button class="btn-love" (click)="showWriteForm.set(!showWriteForm())">
+            {{ showWriteForm() ? 'Cancel' : '+ Write Today\'s Page' }}
+          </button>
+        } @else {
+          <span class="written-badge">✓ Written today</span>
+        }
+      </div>
+
+      @if (showWriteForm() && currentUser()) {
+        <app-write-entry
+          [currentUser]="currentUser()!"
+          (entrySaved)="onEntryWritten()"
+        />
+      }
+
+      @if (groupedEntries().length === 0) {
+        <div class="empty-state">
+          <span class="empty-icon">📝</span>
+          <p>Your diary is empty. Write your first page today!</p>
+        </div>
+      }
+
+      @for (group of groupedEntries(); track group.date) {
+        <div class="date-group">
+          <div class="date-label">{{ group.date }}</div>
+          <div class="entries-row">
+            @for (entry of group.entries; track entry.id) {
+              <app-entry-card
+                [entry]="entry"
+                [currentUserId]="currentUser()!.uid"
+              />
+            }
+          </div>
+        </div>
+      }
+    }
+  </main>
+</div>
