@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { dairyGuard, pairedGuard } from './guards/auth.guard';
+import { dairyGuard, pairedGuard } from './guards/guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'diary', pathMatch: 'full' },
